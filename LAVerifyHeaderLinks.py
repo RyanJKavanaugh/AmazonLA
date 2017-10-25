@@ -34,9 +34,9 @@ if adjustResolution == 1:
     AdjustResolution()
 
 
-class Verify_Idaho_Links(unittest.TestCase):
+class Verify_Links(unittest.TestCase):
 
-    def test_idaho_tg_web_topbar_links(self):
+    def test_tg_web_topbar_links(self):
         strList = []
         httpLinkList = []
         html_page = urllib2.urlopen(url)
