@@ -30,8 +30,8 @@ worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 adjustResolution = worksheet.cell(1, 3).value
 
-if adjustResolution == 1:
-    AdjustResolution()
+# if adjustResolution == 1:
+#     AdjustResolution()
 
 
 class Verify_Links(unittest.TestCase):
@@ -52,14 +52,16 @@ class Verify_Links(unittest.TestCase):
 
         counter = 0
         for item in httpLinkList:
+            print item
             try:
                 r = requests.head(item)
                 if r.status_code != 200 and r.status_code != 301 and r.status_code != 302:
                     print item
                     counter =+1
-            except:
+            except, e:
                 print "failed to connect"
                 print item
+                print e
                 counter =+ 1
 
         if counter > 0:
