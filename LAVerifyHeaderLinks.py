@@ -58,10 +58,10 @@ class Verify_Links(unittest.TestCase):
                 if r.status_code != 200 and r.status_code != 301 and r.status_code != 302:
                     print item
                     counter =+1
-            except, e:
+            except Exception, e:
                 print "failed to connect"
                 print item
-                print e
+                print str(e)
                 counter =+ 1
 
         if counter > 0:
