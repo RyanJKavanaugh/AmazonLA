@@ -52,9 +52,9 @@ class Verify_Links(unittest.TestCase):
 
         counter = 0
         for item in httpLinkList:
-            print item
+            #print item
             try:
-                r = requests.head(item)
+                r = requests.get(item)
                 if r.status_code != 200 and r.status_code != 301 and r.status_code != 302:
                     print item
                     counter =+1
