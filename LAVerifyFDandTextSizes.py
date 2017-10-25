@@ -25,7 +25,7 @@ worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 adjustResolution = worksheet.cell(1, 3).value
 
-if adjustResolution == True:
+if adjustResolution == 1:
     AdjustResolution()
 
 class Verify_Idaho_Links(unittest.TestCase):
