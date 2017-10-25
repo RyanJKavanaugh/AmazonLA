@@ -25,7 +25,7 @@ username = worksheet.cell(1, 1).value
 password = worksheet.cell(1, 2).value
 adjustResolution = worksheet.cell(1, 3).value
 
-if adjustResolution == True:
+if adjustResolution == 1:
     AdjustResolution()
 
 class Verify_Idaho_Menu_Options(unittest.TestCase):
