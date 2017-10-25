@@ -59,6 +59,7 @@ class Verify_Links(unittest.TestCase):
                     counter =+1
             except:
                 print "failed to connect"
+                print item
                 counter =+ 1
 
         if counter > 0:
