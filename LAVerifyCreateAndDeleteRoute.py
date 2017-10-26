@@ -38,13 +38,14 @@ class Verify_Login_And_Saving_Routes(unittest.TestCase):
 
     def test_login_route_creation_and_deletion(self):
         driver = self.driver
-        driver.set_window_size(1800, 1100)
+        self.driver.maximize_window()
 
     #   HEAD TO CO WEBSITE
         driver.get(url)
 
     #   SELECT THE FAVORITE PAGE
         pageLoadWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'favoriteBtn')))
+        time.sleep(2)
         signInButton = driver.find_element_by_id('favoriteBtn')
         signInButton.click()
 
@@ -58,6 +59,7 @@ class Verify_Login_And_Saving_Routes(unittest.TestCase):
         pageLoadWait = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, 'searchBtn')))
         searchButton = driver.find_element_by_id('searchBtn')
         clickLoadWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'searchBtn')))
+        time.sleep(2)
         searchButton.click()
 
     #  ENTER LOCATIONS A & B
