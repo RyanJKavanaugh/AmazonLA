@@ -56,7 +56,7 @@ def Verify_Layer_Drop_Down_Item(driver, xPath, itemText, itemLink):
 # Unit test for reporting status of test back to team
 class Verify_Idaho_Layers(unittest.TestCase):
 
-    def test_presence_of_correct_layers_CHROME(self):
+    def test_presence_of_correct_layers(self):
         self.driver = webdriver.Chrome()
         driver = self.driver
         driver.get(url)

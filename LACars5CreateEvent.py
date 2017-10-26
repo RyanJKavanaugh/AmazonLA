@@ -21,7 +21,6 @@ def AdjustResolution():
     display = Display(visible=0, size=(800, 800))
     display.start()
 
-
 # Pull link and user credentials from excel spreadsheet
 workbook = xlrd.open_workbook('LA CARS 5 Links.xlsx')
 worksheet = workbook.sheet_by_index(0)
@@ -89,7 +88,7 @@ if __name__ == '__main__':
 # try to grab an icon
 # 1. create an event (try moving mouse to middle of the page and then clicking on it)
 # 2. assert event exist
-# 3. Also, think about checking buttons are enabled and that security settins work, think of little nuances to grow test coverage...
+# 3. Also, think about checking buttons are enabled and that security settings work, think of little nuances to grow test coverage...
 
 
 

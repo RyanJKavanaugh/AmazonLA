@@ -29,6 +29,7 @@ adjustResolution = worksheet.cell(1, 3).value
 if adjustResolution == 1:
     AdjustResolution()
 
+
 class Verify_Idaho_Links(unittest.TestCase):
 
     def test_Future_Info_Toolbar_Is_Active_Chrome(self):
