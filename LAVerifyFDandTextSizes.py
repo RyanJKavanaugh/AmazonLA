@@ -38,6 +38,7 @@ class Verify_Idaho_Links(unittest.TestCase):
         driver = self.driver
         driver.set_window_size(1800, 1100)
         driver.get(url)
+        time.sleep(3)
         loginElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
 
         driver.find_element_by_id('timeFrameSelectorDiv').click()

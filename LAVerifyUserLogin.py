@@ -28,10 +28,8 @@ username = worksheet.cell(1, 1).value
 password = worksheet.cell(1, 2).value
 adjustResolution = worksheet.cell(1, 3).value
 
-print adjustResolution
-
-if adjustResolution == 1:
-    AdjustResolution()
+# if adjustResolution == 1:
+#     AdjustResolution()
 
 
 class Verify_Login_And_Saving_Routes(unittest.TestCase):
@@ -46,15 +44,15 @@ class Verify_Login_And_Saving_Routes(unittest.TestCase):
         driver = self.driver
         driver.maximize_window()
 
-        loginElement = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, 'sign-in-link')))
+        loginElement = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'sign-in-link')))
         driver.find_element_by_id('sign-in-link').click()
-        loginElement2 = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, 'userAccountEmail')))
+        loginElement2 = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'userAccountEmail')))
         driver.find_element_by_id('userAccountEmail').send_keys(username)
         driver.find_element_by_id('userAccountPassword').send_keys(password)
         driver.find_element_by_id('userAccountPassword').submit()
         time.sleep(4)
 
-        left_Panel_Wait = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@title="Ryan’s Favorites"]')))
+        left_Panel_Wait = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@title="Ryan’s Favorites"]')))
         assert driver.find_element_by_xpath("//*[contains(text(), 'Ryan’s 511')]")
 
 
