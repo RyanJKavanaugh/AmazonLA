@@ -82,7 +82,7 @@ class Verify_Login_And_Saving_Routes(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="save-route-form"]/button').submit() # Clicking the submit button
 
     #   ASSERT THE SAVE FUNCTION WORKED AND WE ARE NOW ON THE 'FAVORITES' PAGE
-        pageLoadWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, "favorites-content-area")))
+        pageLoadWait = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "favorites-content-area")))
         assert (driver.find_element_by_id("favorites-content-area").is_displayed()), 'Event Edits Creation Button Is Not Displayed' # Did we make it to the 'Favorites' page
 
 
