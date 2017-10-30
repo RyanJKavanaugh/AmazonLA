@@ -34,11 +34,10 @@ class Verify_Login_And_Saving_Routes(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         print '\n' + "Verifying login and saving routes features" + '\n'
-
+        self.driver.maximize_window()
 
     def test_login_route_creation_and_deletion(self):
         driver = self.driver
-        self.driver.maximize_window()
 
     #   HEAD TO CO WEBSITE
         driver.get(url)
