@@ -30,14 +30,17 @@ if adjustResolution == 1:
     AdjustResolution()
 
 
-class Verify_Idaho_Links(unittest.TestCase):
+class Verify_Future_Dates_And_Text_Sizes(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.set_window_size(1800, 1100)
+        self.driver.get(url)
 
     def test_Future_Info_Toolbar_Is_Active_Chrome(self):
 
-        self.driver = webdriver.Chrome()
         driver = self.driver
-        driver.set_window_size(1800, 1100)
-        driver.get(url)
+
         time.sleep(3)
         loginElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
 
@@ -53,30 +56,8 @@ class Verify_Idaho_Links(unittest.TestCase):
 
         assert driver.find_element_by_id('textOnlySiteLinkSpan').is_enabled()
 
-        driver.close()
-
-
-    # def test_Future_Info_Toolbar_Is_Active_Firefox(self):
-    #
-    #     self.driver = webdriver.Firefox()
-    #     driver = self.driver
-    #     driver.set_window_size(1800, 1100)
-    #     driver.get(url)
-    #     loginElement = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
-    #
-    #     driver.find_element_by_id('timeFrameSelectorDiv').click()
-    #
-    #     assert driver.find_element_by_id('timeFrameSelectorDiv').is_enabled()
-    #
-    #     assert driver.find_element_by_id('smallTextLnk').is_enabled()
-    #
-    #     assert driver.find_element_by_id('normalTextLnk').is_enabled()
-    #
-    #     assert driver.find_element_by_id('largeTextLnk').is_enabled()
-    #
-    #     assert driver.find_element_by_id('textOnlySiteLinkSpan').is_enabled()
-    #
-    #     driver.close()
+    def tearDown(self):
+        self.driver.quit()
 
 
 if __name__ == '__main__':

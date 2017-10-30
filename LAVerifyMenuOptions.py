@@ -28,13 +28,12 @@ adjustResolution = worksheet.cell(1, 3).value
 if adjustResolution == 1:
     AdjustResolution()
 
-class Verify_Idaho_Menu_Options(unittest.TestCase):
+class Verify_LA_Menu_Options(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
        # self.driver.get('http://idwebtg.carsstage.org/#roadReports?timeFrame=TODAY&layers=roadReports%2CwinterDriving%2CweatherWarnings%2CotherStates')
         self.driver.get(url)
-        print ('\n') + "Verify Menu Options Are Enabled"
 
 
     def test_idaho_menu(self):

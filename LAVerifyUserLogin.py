@@ -19,8 +19,6 @@ def AdjustResolution():
     display = Display(visible=0, size=(800, 800))
     display.start()
 
-#AdjustResolution()
-
 workbook = xlrd.open_workbook('DataLA.xlsx')
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
@@ -32,11 +30,11 @@ if adjustResolution == 1:
     AdjustResolution()
 
 
-class Verify_Login_And_Saving_Routes(unittest.TestCase):
+
+class Verify_Login(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        print '\n' + "Verifying login feature" + '\n'
         self.driver.get(url)
 
 
@@ -57,7 +55,6 @@ class Verify_Login_And_Saving_Routes(unittest.TestCase):
 
 
     def tearDown(self):
-        print '\n' + "Test Completed"
         self.driver.quit()
 
 

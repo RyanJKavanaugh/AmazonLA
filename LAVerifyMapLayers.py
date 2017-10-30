@@ -21,7 +21,6 @@ def AdjustResolution():
     display = Display(visible=0, size=(800, 800))
     display.start()
 
-#AdjustResolution()
 
 workbook = xlrd.open_workbook('DataLA.xlsx')
 worksheet = workbook.sheet_by_index(0)
@@ -54,13 +53,16 @@ def Verify_Layer_Drop_Down_Item(driver, xPath, itemText, itemLink):
         return False
 
 # Unit test for reporting status of test back to team
-class Verify_Idaho_Layers(unittest.TestCase):
+class Verify_Map_Layers(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get(url)
+        self.driver.maximize_window()
+
 
     def test_presence_of_correct_layers(self):
-        self.driver = webdriver.Chrome()
         driver = self.driver
-        driver.get(url)
-        driver.maximize_window()
 
         dropDownMenuWait = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'layers-menu-dropdown-button')))
         driver.find_element_by_id('layers-menu-dropdown-button').click()
@@ -85,8 +87,9 @@ class Verify_Idaho_Layers(unittest.TestCase):
         # 9. Ninth Item Verification: Other States' Info
         assert Verify_Layer_Drop_Down_Item(driver, itemXpath[8], itemText[8], itemLink[8]), "Other States' Info Are Faulty"
 
-        driver.close()
-        print 'Chrome'
+
+    def tearDown(self):
+        self.driver.quit()
 
 
 if __name__ == '__main__':
