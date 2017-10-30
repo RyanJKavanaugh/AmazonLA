@@ -33,14 +33,21 @@ class Verify_Save_Place(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        print '\n' + "Verifying login and saving routes features" + '\n'
         self.driver.maximize_window()
 
     def test_login_route_creation_and_deletion(self):
-
         driver = self.driver
+        driver.get(url)
 
+        searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'searchBtn')))
+        driver.find_element_by_id('searchBtn').click()
 
+        placeNameTxtWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'placeNameTxt')))
+        placeNameTxtElem = driver.find_element_by_id('placeNameTxt')
+        placeNameTxtElem.send_keys('Alexandria, LA, United States')
+        placeNameTxtElem.send_keys(Keys.RETURN)
+
+        time.sleep(5)
 
     def tearDown(self):
         print '\n' + "Test Completed"
