@@ -7,6 +7,7 @@ from LAVerifyCreateAndDeleteRoute import Verify_Login_And_Saving_Routes
 from LAVerifyFDandTextSizes import Verify_Future_Dates_And_Text_Sizes
 from LAVerifyUserLogin import Verify_Login
 from LAVerifyMapLayers import Verify_Map_Layers
+from LAVerifyLegend  import Verify_Legend_Data
 import xlrd
 
 workbook = xlrd.open_workbook('DataLA.xlsx')
@@ -27,12 +28,14 @@ future_dates_and_text_sizes = unittest.TestLoader().loadTestsFromTestCase(Verify
 user_login = unittest.TestLoader().loadTestsFromTestCase(Verify_Login)
 #   5
 map_layers = unittest.TestLoader().loadTestsFromTestCase(Verify_Map_Layers)
-
 #   6
 create_and_delete_route = unittest.TestLoader().loadTestsFromTestCase(Verify_Login_And_Saving_Routes)
+#   7
+legend_data = unittest.TestLoader().loadTestsFromTestCase(Verify_Legend_Data)
+
 
 # create a test suite combining search_text and home_page_test
-test_suite = unittest.TestSuite([left_hand_menu, header_links, future_dates_and_text_sizes, user_login, map_layers, create_and_delete_route])
+test_suite = unittest.TestSuite([left_hand_menu, header_links, future_dates_and_text_sizes, user_login, map_layers, create_and_delete_route, legend_data])
 
 if Jenkins == True:
     # run the suite

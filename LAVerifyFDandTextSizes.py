@@ -18,7 +18,6 @@ from pyvirtualdisplay import Display
 # Required Function For Working With Jenkins Virtual Machine
 
 
-
 workbook = xlrd.open_workbook('DataLA.xlsx')
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
@@ -40,7 +39,7 @@ class Verify_Future_Dates_And_Text_Sizes(unittest.TestCase):
         self.driver.set_window_size(1800, 1100)
         self.driver.get(url)
 
-    def test_Future_Info_Toolbar_Is_Active_Chrome(self):
+    def test_Future_Info_Toolbar_Is_Active(self):
 
         driver = self.driver
 

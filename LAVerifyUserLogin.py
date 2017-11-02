@@ -38,7 +38,7 @@ class Verify_Login(unittest.TestCase):
         self.driver.get(url)
 
 
-    def test_login_route_creation_and_deletion(self):
+    def test_login(self):
         driver = self.driver
         driver.maximize_window()
 
