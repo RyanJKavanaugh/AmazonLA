@@ -11,6 +11,7 @@ import time
 import unittest
 import xlrd
 import requests
+import xmlrunner
 from pyvirtualdisplay import Display
 # -*- coding: utf-8 -*-
 
@@ -30,6 +31,7 @@ adjustResolution = worksheet.cell(1, 3).value
 # Pull data from spreadsheet to compare against web page
 legendDataWS = workbook.sheet_by_index(2)
 legendData = []
+# Range of spreadsheet *Check For Each Agency*
 for x in range (1, 9):
     legendData.append(legendDataWS.cell(x, 0).value)
 
@@ -62,6 +64,7 @@ class Verify_Legend_Data(unittest.TestCase):
         # Verify the correct data is in the map legend
         legendContent = driver.find_element_by_id('legendContent')
         pageData = legendContent.get_attribute("innerHTML")
+        # Range: *Check For Each Agency*
         for indexNumber in range (0, 8):
             word = legendData[indexNumber]
             assert word in pageData
@@ -92,4 +95,4 @@ class Verify_Legend_Data(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

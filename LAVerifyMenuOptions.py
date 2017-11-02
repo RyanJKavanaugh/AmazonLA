@@ -36,7 +36,7 @@ class Verify_LA_Menu_Options(unittest.TestCase):
         self.driver.get(url)
 
 
-    def test_idaho_menu(self):
+    def test_Menu_Options(self):
 
         driver = self.driver
 
