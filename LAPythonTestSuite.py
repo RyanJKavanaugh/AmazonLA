@@ -9,6 +9,7 @@ from LAVerifyUserLogin import Verify_Login
 from LAVerifyMapLayers import Verify_Map_Layers
 from LAVerifyLegend  import Verify_Legend_Data
 import xlrd
+import sys
 
 workbook = xlrd.open_workbook('DataLA.xlsx')
 worksheet = workbook.sheet_by_index(0)
@@ -39,7 +40,11 @@ test_suite = unittest.TestSuite([left_hand_menu, header_links, future_dates_and_
 
 if Jenkins == True:
     # run the suite
-    unittest.TextTestRunner(verbosity=2).run(test_suite)
+    # unittest.TextTestRunner(verbosity=2).run(test_suite)
+    #unittest.TextTestRunner(verbosity=2).run(test_suite)
+    test_runner = unittest.TextTestRunner(resultclass=unittest.TextTestResult)
+    result = test_runner.run(test_suite)
+    sys.exit(not result.wasSuccessful())
 else:
     # open the report file
     outfile = open(dir + "\SeleniumPythonTestSummary.html", "w")
