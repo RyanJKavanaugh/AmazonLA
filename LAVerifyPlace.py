@@ -31,16 +31,15 @@ if adjustResolution == 1:
 
 class Verify_Save_Place(unittest.TestCase):
 
-    # def setUp(self):
-    #     self.driver = webdriver.Chrome()
-    #     self.driver.maximize_window()
-
-    def test_login_route_creation_and_deletion(self):
+    def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
-        driver = self.driver
-        driver.get(url)
+        self.driver.get(url)
 
+    def test_login_route_creation_and_deletion(self):
+        driver = self.driver
+
+        # HEAD TO THE SEARCH MENU AND SAVE A PLACE
         searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'searchBtn')))
         driver.find_element_by_id('searchBtn').click()
 
@@ -51,32 +50,19 @@ class Verify_Save_Place(unittest.TestCase):
 
         saveAreaLinkWait = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, "saveAreaLink")))
 
-        time.sleep(3)
-
-        testList = driver.find_element_by_id('leftPanelContent')
-        # print testList
-        # print testList.text
-
-        saveLink = driver.find_element_by_xpath("//*[contains(text(), 'Save')]")
-
-        print saveLink
-        print saveLink.get_attribute('src')
-        print saveLink.get_attribute('OuterHTML')
-        # for item in testList:
-        #     item.click()
-
-        # The work around I have surrendered to thus far
+        # 777 MAYBE TALK TO DEV ABOUT THIS ONE: The work around I have surrendered to thus far
         driver.find_element_by_xpath('//*[@id="leftPanelContent"]/div/div[3]/a').click()
 
-        #images/favorites/star_icon_yellow.png
-        # #leftPanelContent > div > div:nth-child(4) > a
+        # LOGIN FOR SAVING THE ROUTE
+        pageLoadWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'userAccountEmail')))
+        driver.find_element_by_id('userAccountEmail').send_keys(username) # Login
+        driver.find_element_by_id('userAccountPassword').send_keys(password)
+        driver.find_element_by_id('userAccountPassword').submit()
 
+        time.sleep(30)
 
-        time.sleep(40)
-
-    # def tearDown(self):
-    #     print '\n' + "Test Completed"
-    #     self.driver.quit()
+    def tearDown(self):
+        self.driver.quit()
 
 
 if __name__ == '__main__':

@@ -67,24 +67,24 @@ class Verify_Legend_Data(unittest.TestCase):
             assert word in pageData
 
 
-    def test_Map_Legend_Icons(self):
-        driver = self.driver
-        testCounter = 0
-        searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'mapLegend')))
-        for w in range(0, 8):
-            imageLink = driver.find_element_by_xpath("//*[@alt='{0} icon']".format(legendData[w])).get_attribute('src')
-            # print imageLink
-            requestForlink = requests.get(imageLink)
-            statusCode = requestForlink.status_code
-            # print statusCode
-
-            if statusCode != 200:
-                print 'This link is down:'
-                print imageLink
-                testCounter += 1
-
-            if testCounter >0:
-                assert False
+    # def test_Map_Legend_Icons(self):
+    #     driver = self.driver
+    #     testCounter = 0
+    #     searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'mapLegend')))
+    #     for w in range(0, 8):
+    #         imageLink = driver.find_element_by_xpath("//*[@alt='{0} icon']".format(legendData[w])).get_attribute('src')
+    #         # print imageLink
+    #         requestForlink = requests.get(imageLink)
+    #         statusCode = requestForlink.status_code
+    #         # print statusCode
+    #
+    #         if statusCode != 200:
+    #             print 'This link is down:'
+    #             print imageLink
+    #             testCounter += 1
+    #
+    #         if testCounter >0:
+    #             assert False
 
 
     def tearDown(self):
