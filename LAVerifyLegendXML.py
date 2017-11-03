@@ -11,6 +11,7 @@ import time
 import unittest
 import xlrd
 import requests
+import xmlrunner
 from pyvirtualdisplay import Display
 # -*- coding: utf-8 -*-
 
@@ -94,4 +95,4 @@ class Verify_Legend_Data(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

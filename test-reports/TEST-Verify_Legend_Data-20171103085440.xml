@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" name="Verify_Legend_Data-20171103085440" skipped="0" tests="1" time="4.324">
+	<testcase classname="Verify_Legend_Data" name="test_Legend_Data_Text" time="4.324"/>
+	<system-out>
+<![CDATA[]]>	</system-out>
+	<system-err>
+<![CDATA[]]>	</system-err>
+</testsuite>
