@@ -37,14 +37,18 @@ class Verify_Save_Place(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
-        self.driver.get(url)
 
 
     def test_login_route_creation_and_deletion(self):
         driver = self.driver
+        driver.get(url)
 
         # HEAD TO THE SEARCH MENU AND SAVE A PLACE
-        searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'searchBtn')))
+        try:
+            searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'searchBtn')))
+        except:
+            searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'searchBtn')))
+
         driver.find_element_by_id('searchBtn').click()
 
         placeNameTxtWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'placeNameTxt')))
@@ -73,10 +77,26 @@ class Verify_Save_Place(unittest.TestCase):
 
         assert driver.find_element_by_xpath("//*[contains(text(),'Alexandria, LA, United States')]").is_displayed()
 
+        time.sleep(8)
+
+        driver.find_element_by_xpath('//*[@title="Customize and control Your 511"]').click()
+
+        time.sleep(3)
+
+        try:
+            driver.find_element_by_xpath("//*[contains(text(), 'Delete this route')]").click()
+        except:
+            driver.find_element_by_class_name('deleteFavorite').click()
+
+        alert = driver.switch_to.alert.accept()
+
+        assert (driver.find_element_by_xpath("//*[contains(text(), 'Delete this route')]").is_displayed == False)
+
+
         # There seems to be some kind of eror after this, looks like it occurs when a place is already saved to the user's
         # places area
 
-        time.sleep(30)
+        time.sleep(10)
 
 
     def tearDown(self):

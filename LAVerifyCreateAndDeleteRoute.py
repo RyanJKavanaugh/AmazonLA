@@ -26,11 +26,13 @@ username = worksheet.cell(1, 1).value
 password = worksheet.cell(1, 2).value
 adjustResolution = worksheet.cell(1, 3).value
 
+
 if adjustResolution == 1:
     AdjustResolution()
 
 
 class Verify_Login_And_Saving_Routes(unittest.TestCase):
+
 
     def setUp(self):
         self.driver = webdriver.Chrome()

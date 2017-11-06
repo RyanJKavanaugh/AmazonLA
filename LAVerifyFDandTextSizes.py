@@ -48,7 +48,7 @@ class Verify_Future_Dates_And_Text_Sizes(unittest.TestCase):
         try:
             waitElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
         except:
-            waitElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
+            pass
 
         driver.find_element_by_id('timeFrameSelectorDiv').click()
 
