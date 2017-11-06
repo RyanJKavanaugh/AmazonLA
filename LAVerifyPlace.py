@@ -11,6 +11,7 @@ import time
 import unittest
 import xlrd
 from pyvirtualdisplay import Display
+from LaVariables import workbookNameData
 # -*- coding: utf-8 -*-
 
 def AdjustResolution():
@@ -18,12 +19,13 @@ def AdjustResolution():
     display.start()
 
 
-workbook = xlrd.open_workbook('DataLA.xlsx')
+workbook = xlrd.open_workbook(workbookNameData)
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 username = worksheet.cell(1, 1).value
 password = worksheet.cell(1, 2).value
 adjustResolution = worksheet.cell(1, 3).value
+
 
 if adjustResolution == 1:
     AdjustResolution()
@@ -31,10 +33,12 @@ if adjustResolution == 1:
 
 class Verify_Save_Place(unittest.TestCase):
 
+
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.get(url)
+
 
     def test_login_route_creation_and_deletion(self):
         driver = self.driver
@@ -59,7 +63,21 @@ class Verify_Save_Place(unittest.TestCase):
         driver.find_element_by_id('userAccountPassword').send_keys(password)
         driver.find_element_by_id('userAccountPassword').submit()
 
+        time.sleep(4)
+
+        driver.find_element_by_xpath('//*[@id="leftPanelContent"]/div/div[3]/a').click()
+
+        time.sleep(4)
+
+        driver.find_element_by_xpath('//*[@id="saveAreaForm"]/button').click()  # Clicking the submit button
+
+        assert driver.find_element_by_xpath("//*[contains(text(),'Alexandria, LA, United States')]").is_displayed()
+
+        # There seems to be some kind of eror after this, looks like it occurs when a place is already saved to the user's
+        # places area
+
         time.sleep(30)
+
 
     def tearDown(self):
         self.driver.quit()
@@ -67,5 +85,3 @@ class Verify_Save_Place(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-# //*[@id="leftPanelContent"]/div/div[3]/a/text()

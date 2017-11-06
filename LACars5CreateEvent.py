@@ -14,6 +14,7 @@ import xlrd
 from selenium.webdriver.support.ui import Select
 import datetime
 import time
+from LaVariables import workbookNameCars5
 from pyvirtualdisplay import Display
 # -*- coding: utf-8 -*-
 
@@ -25,7 +26,7 @@ def AdjustResolution():
     display.start()
 
 # Pull link and user credentials from excel spreadsheet
-workbook = xlrd.open_workbook('LA CARS 5 Links.xlsx')
+workbook = xlrd.open_workbook(workbookNameCars5)
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 username = worksheet.cell(1, 1).value

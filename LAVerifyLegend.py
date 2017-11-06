@@ -11,6 +11,7 @@ import time
 import unittest
 import xlrd
 import requests
+from LaVariables import workbookNameData
 from pyvirtualdisplay import Display
 # -*- coding: utf-8 -*-
 
@@ -20,7 +21,7 @@ def AdjustResolution():
     display = Display(visible=0, size=(800, 800))
     display.start()
 
-workbook = xlrd.open_workbook('DataLA.xlsx')
+workbook = xlrd.open_workbook(workbookNameData)
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 username = worksheet.cell(1, 1).value

@@ -10,8 +10,9 @@ from LAVerifyMapLayers import Verify_Map_Layers
 from LAVerifyLegend  import Verify_Legend_Data
 import xlrd
 import sys
+from LaVariables import workbookNameData
 
-workbook = xlrd.open_workbook('DataLA.xlsx')
+workbook = xlrd.open_workbook(workbookNameData)
 worksheet = workbook.sheet_by_index(0)
 Jenkins = worksheet.cell(1, 4).value
 

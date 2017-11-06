@@ -16,6 +16,7 @@ import urllib2
 from BeautifulSoup import BeautifulSoup
 import requests
 import xlrd
+from LaVariables import workbookNameData
 from pyvirtualdisplay import Display
 # -*- coding: utf-8 -*-
 
@@ -24,7 +25,7 @@ def AdjustResolution():
     display.start()
 
 
-workbook = xlrd.open_workbook('DataLA.xlsx')
+workbook = xlrd.open_workbook(workbookNameData)
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 adjustResolution = worksheet.cell(1, 3).value

@@ -11,6 +11,7 @@ import xlrd
 import time
 import unittest
 import os
+from LaVariables import workbookNameData
 from pyvirtualdisplay import Display
 
 # Test verifies the Future Info Toolbar buttons are fully functional
@@ -18,7 +19,7 @@ from pyvirtualdisplay import Display
 # Required Function For Working With Jenkins Virtual Machine
 
 
-workbook = xlrd.open_workbook('DataLA.xlsx')
+workbook = xlrd.open_workbook(workbookNameData)
 worksheet = workbook.sheet_by_index(0)
 url = worksheet.cell(1, 0).value
 adjustResolution = worksheet.cell(1, 3).value
@@ -44,7 +45,10 @@ class Verify_Future_Dates_And_Text_Sizes(unittest.TestCase):
         driver = self.driver
 
         time.sleep(3)
-        loginElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
+        try:
+            waitElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
+        except:
+            waitElement = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'timeFrameSelectorDiv')))
 
         driver.find_element_by_id('timeFrameSelectorDiv').click()
 
