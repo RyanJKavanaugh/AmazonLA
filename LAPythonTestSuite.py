@@ -8,6 +8,7 @@ from LAVerifyFDandTextSizes import Verify_Future_Dates_And_Text_Sizes
 from LAVerifyUserLogin import Verify_Login
 from LAVerifyMapLayers import Verify_Map_Layers
 from LAVerifyLegend  import Verify_Legend_Data
+from  LAVerifyPlace import Verify_Save_Place
 import xlrd
 import sys
 from LaVariables import workbookNameData
@@ -35,9 +36,11 @@ create_and_delete_route = unittest.TestLoader().loadTestsFromTestCase(Verify_Log
 #   7
 legend_data = unittest.TestLoader().loadTestsFromTestCase(Verify_Legend_Data)
 
+# 8
+create_route_API_check = unittest.TestLoader().loadTestsFromTestCase(Verify_Save_Place)
 
 # create a test suite combining search_text and home_page_test
-test_suite = unittest.TestSuite([left_hand_menu, header_links, future_dates_and_text_sizes, user_login, map_layers, create_and_delete_route, legend_data])
+test_suite = unittest.TestSuite([create_route_API_check, left_hand_menu, header_links, future_dates_and_text_sizes, user_login, map_layers, create_and_delete_route, legend_data])
 
 if Jenkins == True:
     # run the suite

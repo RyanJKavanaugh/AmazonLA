@@ -10,6 +10,8 @@ from selenium.webdriver.common.by import By
 import time
 import unittest
 import xlrd
+import requests
+import json
 from pyvirtualdisplay import Display
 from LaVariables import workbookNameData
 # -*- coding: utf-8 -*-
@@ -58,7 +60,7 @@ class Verify_Save_Place(unittest.TestCase):
 
         saveAreaLinkWait = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, "saveAreaLink")))
 
-        # 777 MAYBE TALK TO DEV ABOUT THIS ONE: The work around I have surrendered to thus far
+        # 777 MAYBE TALK TO DEV ABOUT THIS ONE:
         driver.find_element_by_xpath('//*[@id="leftPanelContent"]/div/div[3]/a').click()
 
         # LOGIN FOR SAVING THE ROUTE
@@ -67,36 +69,41 @@ class Verify_Save_Place(unittest.TestCase):
         driver.find_element_by_id('userAccountPassword').send_keys(password)
         driver.find_element_by_id('userAccountPassword').submit()
 
-        time.sleep(4)
-
+        saveAreaLinkWait2 = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="leftPanelContent"]/div/div[3]/a')))
+        time.sleep(2)
         driver.find_element_by_xpath('//*[@id="leftPanelContent"]/div/div[3]/a').click()
 
-        time.sleep(4)
-
+        saveAreaButtonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="saveAreaForm"]/button')))
         driver.find_element_by_xpath('//*[@id="saveAreaForm"]/button').click()  # Clicking the submit button
 
-        assert driver.find_element_by_xpath("//*[contains(text(),'Alexandria, LA, United States')]").is_displayed()
+        userInfo = {"userId":"ryan.kavanaugh@crc-corp.com","password":"test"}
+        authTokenURL = 'http://latg.carsprogram.org:80/publicaccounts_v1/api/authTokens'
 
-        time.sleep(8)
+        myResponse = requests.post(authTokenURL, json=userInfo)
+        jData = json.loads(myResponse.content)
+        authToken = jData.get('id')
+        accountID = jData.get('accountId')
 
-        driver.find_element_by_xpath('//*[@title="Customize and control Your 511"]').click()
+        # This section gets the user's current saved places
+        #       This allows us to create places and make sure they hit the api & that we can create stuff via the API
+        #       and then check to see that the saved places showed up on the TG-Web site
 
-        time.sleep(3)
+        customAreasAPIUrl = 'http://latg.carsprogram.org:80/publicaccounts_v1/api/accounts/' + str(accountID) + '/customAreas?authTokenId=' + str(authToken)
+        customAreaJson = requests.get(customAreasAPIUrl)
 
-        try:
-            driver.find_element_by_xpath("//*[contains(text(), 'Delete this route')]").click()
-        except:
-            driver.find_element_by_class_name('deleteFavorite').click()
+        data = customAreaJson.json()
 
-        alert = driver.switch_to.alert.accept()
+        if len(data) > 0:
+            #print data[0]
+            placeName = data[0].get('name')
+            placeID = data[0].get('id')
+            print placeName
 
-        assert (driver.find_element_by_xpath("//*[contains(text(), 'Delete this route')]").is_displayed == False)
+        assert placeName == 'Alexandria, LA, United States'
 
-
-        # There seems to be some kind of eror after this, looks like it occurs when a place is already saved to the user's
-        # places area
-
-        time.sleep(10)
+        # Wipe clean the event after we have asserted that it was created via the interface in the API
+        deleteUrl = 'https://hb.511la.org/tgpublicaccounts/api/accounts/15466/customAreas/' + str(placeID) + '?authTokenId=' + str(authToken)
+        deleteItem = requests.delete(deleteUrl)
 
 
     def tearDown(self):

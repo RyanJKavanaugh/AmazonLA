@@ -49,7 +49,11 @@ class Verify_Legend_Data(unittest.TestCase):
     def test_Legend_Data_Text(self):
         driver = self.driver
 
-        searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'mapLegend')))
+        try:
+            searchButonWait = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'mapLegend')))
+        except:
+            searchButonWait2 = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'mapLegend')))
+
         mapLegend = driver.find_element_by_id('mapLegend')
 
         # Assert the legend is hidden initially

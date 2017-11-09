@@ -19,11 +19,13 @@ from pyvirtualdisplay import Display
 # -*- coding: utf-8 -*-
 
 # /Users/ryankavanaugh/Desktop/AmazonLA/
+# LACars5CreateEvent.py
 
 # Required Function For Working With Jenkins Virtual Machine
 def AdjustResolution():
     display = Display(visible=0, size=(800, 800))
     display.start()
+
 
 # Pull link and user credentials from excel spreadsheet
 workbook = xlrd.open_workbook(workbookNameCars5)
@@ -33,8 +35,10 @@ username = worksheet.cell(1, 1).value
 password = worksheet.cell(1, 2).value
 adjustResolution = worksheet.cell(1, 3).value
 
+
 if adjustResolution == 1:
     AdjustResolution()
+
 
 def Run_Script(driver):
 
@@ -58,18 +62,13 @@ def Run_Script(driver):
     # Fill in the from/at and to
     createEventWait = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, 'eventEditingScreenForm:routePointFromGrid')))
 
-    # item = driver.find_element_by_class_name('gm-style-pbc')
-
     item = driver.find_element_by_id('mapToolbarDiv')
-
-    #item = driver.find_element_by_class_name('lm_center')
 
     hover = ActionChains(driver).move_to_element(item).context_click(item)
 
     hover.perform()
 
     time.sleep(2)
-
 
     # Select first category and descriptor
     selectCategory1 = Select(driver.find_element_by_id('eventEditingScreenForm:categorySelect'))
@@ -90,7 +89,6 @@ def Run_Script(driver):
     descriptorsWait = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, 'phraseEntry')))
     descriptors2 = driver.find_element_by_id('phraseEntry').send_keys('test')
     descriptors20 = driver.find_element_by_xpath('//*[@title="Select descriptor"]').send_keys('Abandoned vehicle')
-    #driver.find_element_by_xpath('//*[@title="Select descriptor"]').send_keys(Keys.RETURN)
     time.sleep(2)
     add_Button2 = driver.find_element_by_id('eventEditingScreenForm:addPhrase')
     add_Button2.click()
@@ -150,7 +148,6 @@ def Run_Script(driver):
 
     print eventInEventsList.get_attribute('onclick')
 
-
     eventInEventsList.click()
 
     time.sleep(3)
@@ -161,15 +158,17 @@ def Run_Script(driver):
 
     time.sleep(20)
 
+
 class Verify_LA_Cars_5(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get(url)
+        self.driver.maximize_window()
+
 
     def test_Login(self):
         driver = self.driver
-        driver.maximize_window()
 
         print time.strftime("%m/%d")
 
@@ -177,8 +176,40 @@ class Verify_LA_Cars_5(unittest.TestCase):
         try:
             Run_Script(driver)
         except:
-            print "okayy"
+            print "okay"
 
+######      NEW PIECE NOT FINISHED ######
+        listXpath = '//*[@title=' + '"' + todaysDate + '"' + ']'
+
+        eventInEventsList = driver.find_element_by_xpath(listXpath)
+
+        cars4IDWithText = eventInEventsList.get_attribute('onclick')
+        print cars4IDWithText
+        cars4ID = cars4IDWithText[33:-3]
+        print cars4ID
+
+        deleteXpath1 = "'attemptEventDeletion('" + cars4ID + "');'"
+        deleteXpath2 = '//*[@onclick=' + deleteXpath1 + ']'
+
+        idList = driver.find_elements_by_xpath("//*[contains(text(), '{0}')]".format(cars4ID))
+
+        deleteList = driver.find_elements_by_xpath("//*[@title='Delete this event']")
+
+        num = 0
+        for item in idList:
+            print item.text
+            # print item.get_attribute('title')
+            print num
+            num += 1
+
+        for item in deleteList:
+            if cars4ID in item.get_attribute('onclick'):
+                print item.get_attribute('title')
+                print item.get_attribute('onclick')
+                item.click()
+                time.sleep(2)
+                driver.switch_to_alert().accept()
+#####                               #####
 
 if __name__ == '__main__':
     unittest.main()
@@ -189,14 +220,3 @@ if __name__ == '__main__':
 # 1. create an event (try moving mouse to middle of the page and then clicking on it)
 # 2. assert event exist
 # 3. Also, think about checking buttons are enabled and that security settings work, think of little nuances to grow test coverage...
-
-
-
-
-
-
-
-
-
-
-

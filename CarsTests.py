@@ -80,7 +80,7 @@ for item in deleteList:
         time.sleep(2)
         driver.switch_to_alert().accept()
 
-#driver.find_element_by_xpath("//*[@onclick='attemptEventDeletion('CARS4-1394.1');']").click()
+# driver.find_element_by_xpath("//*[@onclick='attemptEventDeletion('CARS4-1394.1');']").click()
 eventInEventsList.click()
 
 time.sleep(3)
